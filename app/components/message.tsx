@@ -8,8 +8,6 @@ interface MessageProps {
 }
 
 export default function Message({ append, stringMessage }: MessageProps) {
-  // const { append, setInput, setMessages, messages, handleSubmit } = useChat();
-
   // parse to json
   if (!stringMessage.includes('role')) {
     return <div>{stringMessage}</div>;
@@ -29,16 +27,15 @@ export default function Message({ append, stringMessage }: MessageProps) {
     } as Message;
     append(newMessage);
   };
-
   switch (message.function_call?.name) {
-    case 'get_adriel_list_projects':
+    case 'list_projects':
       return (
         <div>
           <h1>Get the list projects that Adriel was working on</h1>
         </div>
       );
       break;
-    case 'get_adriel_experiences_and_education':
+    case 'experiences_and_education':
       return (
         <div>
           <h1>Get the list of experiences and education of Adriel</h1>
@@ -46,7 +43,7 @@ export default function Message({ append, stringMessage }: MessageProps) {
       );
       break;
 
-    case 'get_adriel_contact':
+    case 'contact':
       return (
         <div>
           <h1>Get the contact of Adriel</h1>
@@ -54,7 +51,7 @@ export default function Message({ append, stringMessage }: MessageProps) {
       );
       break;
 
-    case 'get_adriel_tech_stack':
+    case 'tech_stack':
       return (
         <div>
           <h1>Get the tech stack that Adriel was working on</h1>

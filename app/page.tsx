@@ -4,10 +4,17 @@ import { useChat } from 'ai/react';
 import { Input } from './components/ui/input';
 import Message from './components/message';
 import { useRef, useEffect } from 'react';
+import { stringify } from 'querystring';
 
 export default function Chat() {
-  const { messages, append, input, handleInputChange, handleSubmit } =
-    useChat();
+  const {
+    messages,
+    setMessages,
+    append,
+    input,
+    handleInputChange,
+    handleSubmit,
+  } = useChat();
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,6 +25,22 @@ export default function Chat() {
     }
   }, [messages]);
 
+  if (messages.length === 0) {
+    const content = {
+      role: 'system',
+      function_call: {
+        name: 'help',
+      },
+    };
+
+    setMessages([
+      {
+        id: '1',
+        role: 'system',
+        content: JSON.stringify(content),
+      },
+    ]);
+  }
   return (
     <div className="relative h-screen  max-w-xl mx-auto py-12 ">
       <div className="max-h-[85vh] overflow-y-auto " ref={chatContainerRef}>
@@ -25,7 +48,7 @@ export default function Chat() {
           {messages.map((m) => (
             <div key={m.id} className="flex gap-1 min-h-8 py-2 ">
               <div className="min-w-12 text-center">
-                {m.role === 'user' ? 'User' : 'AI'}
+                {m.role === 'user' ? 'User' : m.role === 'system' ? '' : 'AI'}
               </div>
               <div className="border-l-2 pl-4">
                 <Message append={append} stringMessage={m.content} />

@@ -1,19 +1,10 @@
-import { HfInference } from '@huggingface/inference';
-import { HuggingFaceStream, StreamingTextResponse } from 'ai';
-import { experimental_buildOpenAssistantPrompt } from 'ai/prompts';
-import { OpenAIStream } from 'ai';
 import OpenAI from 'openai';
-import { Readable } from 'stream';
-// Create a new HuggingFace Inference instance
-const Hf = new HfInference(process.env.HUGGINGFACE_API_KEY);
-
-// IMPORTANT! Set the runtime to edge
 // export const runtime = 'edge';
 
 const functions = [
   {
-    name: 'detail_adriel_project',
-    description: 'the details of the project that Adriel was working on',
+    name: 'detail_project',
+    description: 'the details of the project that Adriel  was working on',
     parameters: {
       type: 'object',
       properties: {
@@ -26,7 +17,7 @@ const functions = [
     },
   },
   {
-    name: 'adriel_detail_experience_and_education',
+    name: 'detail_experience_and_education',
     description: 'the details of the experiences and education of Adriel',
     parameters: {
       type: 'object',
@@ -48,19 +39,19 @@ const functions = [
     },
   },
   {
-    name: 'adriel_list_projects',
+    name: 'list_projects',
     description: 'the list projects that Adriel was working on',
   },
   {
-    name: 'adriel_experiences_and_education',
+    name: 'experiences_and_education',
     description: 'the list of experiences and education of Adriel',
   },
   {
-    name: 'adriel_contact',
+    name: 'contact',
     description: 'the contact of Adriel',
   },
   {
-    name: 'adriel_tech_stack',
+    name: 'tech_stack',
     description: 'the tech stack that Adriel was working on',
   },
   {
@@ -78,17 +69,17 @@ export async function POST(req: Request) {
 
   console.log(messages);
 
-  const lastTwoMessages = messages.slice(-2);
+  const lastMessage = messages[messages.length - 1];
 
   const result = await openai.chat.completions.create({
     model: 'gorilla-openfunctions-v2',
     stream: false,
-    messages: lastTwoMessages.map(
-      (message: { content: string; role: string }) => ({
-        content: message.content,
-        role: message.role,
-      })
-    ),
+    messages: [
+      {
+        content: lastMessage.content,
+        role: lastMessage.role,
+      },
+    ],
     functions: functions,
   });
   const response = result.choices[0].message;
