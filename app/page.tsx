@@ -43,7 +43,10 @@ export default function Chat() {
   }
   return (
     <div className="relative h-screen  max-w-xl mx-auto py-12 ">
-      <div className="max-h-[85vh] overflow-y-auto " ref={chatContainerRef}>
+      <div
+        className="max-h-[85vh] overflow-y-auto overflow-x-hidden"
+        ref={chatContainerRef}
+      >
         <div className="flex flex-col w-full  ">
           {messages.map((m) => (
             <div key={m.id} className="flex gap-1 min-h-8 py-2 ">

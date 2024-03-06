@@ -1,6 +1,9 @@
 import OpenAI from 'openai';
 import { useChat } from 'ai/react';
 import { Message } from 'ai';
+import Projects from './projects';
+import Project from './project';
+import TechStack from './tech-stack';
 
 interface MessageProps {
   append: (message: Message) => void;
@@ -29,12 +32,16 @@ export default function Message({ append, stringMessage }: MessageProps) {
   };
   switch (message.function_call?.name) {
     case 'list_projects':
+      return <Projects appendMessage={appendMessage} />;
+
+    case 'detail_project':
       return (
-        <div>
-          <h1>Get the list projects that Adriel was working on</h1>
-        </div>
+        <Project
+          projectName={(message.function_call?.arguments as any).project_name}
+          appendMessage={appendMessage}
+        />
       );
-      break;
+
     case 'experiences_and_education':
       return (
         <div>
@@ -52,12 +59,8 @@ export default function Message({ append, stringMessage }: MessageProps) {
       break;
 
     case 'tech_stack':
-      return (
-        <div>
-          <h1>Get the tech stack that Adriel was working on</h1>
-        </div>
-      );
-      break;
+      return <TechStack />;
+
     case 'help':
       return (
         <div className="">

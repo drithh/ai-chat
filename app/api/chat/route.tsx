@@ -10,6 +10,12 @@ const functions = [
       properties: {
         project_name: {
           type: 'string',
+          enum: [
+            'e-commerce-website',
+            'car-rental',
+            'turing-machine',
+            'invoice-website',
+          ],
           description: 'The name of the project',
         },
       },
@@ -25,9 +31,9 @@ const functions = [
         experience_or_education_type: {
           type: 'string',
           enum: [
-            'Internship_SebelasMaret_UNS',
+            'Internship_UniversitasSebelasMaret_UNS',
             'Freelance_Pingfest',
-            'Education_SebelasMaret_UNS',
+            'Education_UniversitasSebelasMaret_UNS',
           ],
           description: 'The type of experience or education',
         },
