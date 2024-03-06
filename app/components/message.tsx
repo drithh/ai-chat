@@ -4,6 +4,9 @@ import { Message } from 'ai';
 import Projects from './projects';
 import Project from './project';
 import TechStack from './tech-stack';
+import Contact from './contact';
+import Experiences from './experiences';
+import Experience from './experience';
 
 interface MessageProps {
   append: (message: Message) => void;
@@ -38,25 +41,23 @@ export default function Message({ append, stringMessage }: MessageProps) {
       return (
         <Project
           projectName={(message.function_call?.arguments as any).project_name}
-          appendMessage={appendMessage}
         />
       );
 
     case 'experiences_and_education':
+      return <Experiences appendMessage={appendMessage} />;
+
+    case 'detail_experience_and_education':
       return (
-        <div>
-          <h1>Get the list of experiences and education of Adriel</h1>
-        </div>
+        <Experience
+          experienceName={
+            (message.function_call?.arguments as any).experience_or_education
+          }
+        />
       );
-      break;
 
     case 'contact':
-      return (
-        <div>
-          <h1>Get the contact of Adriel</h1>
-        </div>
-      );
-      break;
+      return <Contact />;
 
     case 'tech_stack':
       return <TechStack />;
@@ -65,7 +66,7 @@ export default function Message({ append, stringMessage }: MessageProps) {
       return (
         <div className="">
           Here is some commands you can use:
-          <ul className="list-disc px-4">
+          <ul className="list-disc pl-4">
             <li
               onClick={() => {
                 appendMessage(

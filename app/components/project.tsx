@@ -1,6 +1,5 @@
 interface ProjectProps {
   projectName: string;
-  appendMessage: (content: string) => void;
 }
 
 interface Project {
@@ -9,7 +8,7 @@ interface Project {
   techStack: string[];
 }
 
-export default function Project({ projectName, appendMessage }: ProjectProps) {
+export default function Project({ projectName }: ProjectProps) {
   const convertProjectName = (projectName: string) => {
     const words = projectName.split('-');
     return words

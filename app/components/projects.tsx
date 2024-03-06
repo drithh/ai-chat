@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface Project {
   name: string;
@@ -39,27 +40,38 @@ export default function Projects({ appendMessage }: ProjectsProps) {
   };
 
   return (
-    <div className="flex gap-4 flex-wrap">
-      {projects.map((project: Project) => (
-        <div
-          onClick={() => {
-            appendMessage(project.command);
-          }}
-          key={project.name}
-          className="w-60 transition duration-300 ease-in-out hover:z-0 hover:scale-[1.025] hover:underline cursor-pointer"
-        >
-          <Image
-            src={`/${project.name}.webp`}
-            width={150}
-            height={80}
-            alt={project.name}
-            className="w-full rounded-2xl"
-          />
-          <p className="title font-title text-lg font-bold  text-center">
-            {convertProjectName(project.name)}
-          </p>
-        </div>
-      ))}
+    <div className="flex flex-col gap-2">
+      <div className="desc">
+        A couple of my favorite projects I have built alone or with someone
+      </div>
+      <div className="flex gap-4 flex-wrap">
+        {projects.map((project: Project) => (
+          <div
+            onClick={() => {
+              appendMessage(project.command);
+            }}
+            key={project.name}
+            className="w-60 transition duration-300 ease-in-out hover:z-0 hover:scale-[1.025] hover:underline cursor-pointer"
+          >
+            <Image
+              src={`/${project.name}.webp`}
+              width={150}
+              height={80}
+              alt={project.name}
+              className="w-full rounded-2xl"
+            />
+            <p className="title font-title text-lg font-bold  text-center">
+              {convertProjectName(project.name)}
+            </p>
+          </div>
+        ))}
+      </div>
+      <a
+        className="text-blue-500 hover:underline cursor-pointer text-center"
+        href={`https://github.com/drithh?tab=repositories`}
+      >
+        See more at github
+      </a>
     </div>
   );
 }

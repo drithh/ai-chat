@@ -95,6 +95,10 @@ export default function TechStack() {
   ];
   return (
     <div>
+      <p className="title font-title ">
+        Here are few technologies that are cup of my{' '}
+        <span className="line-through">coffee</span> tea
+      </p>
       <div className="mt-5 grid max-w-[48rem] grid-cols-2 gap-y-4 text-[1.3rem] text-light-transparent dark:text-dark-transparent md:grid-cols-3">
         {tech.map((tech, index) => {
           return (

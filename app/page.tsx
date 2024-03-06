@@ -62,7 +62,7 @@ export default function Chat() {
       </div>
       <form onSubmit={handleSubmit} id="chat-form">
         <Input
-          className="absolute bottom-0 mb-8  w-full"
+          className="absolute bottom-0 mb-8  w-full shadow-lg"
           value={input}
           placeholder="Say something..."
           onChange={handleInputChange}

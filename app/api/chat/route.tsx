@@ -28,7 +28,7 @@ const functions = [
     parameters: {
       type: 'object',
       properties: {
-        experience_or_education_type: {
+        experience_or_education: {
           type: 'string',
           enum: [
             'Internship_UniversitasSebelasMaret_UNS',
@@ -38,10 +38,7 @@ const functions = [
           description: 'The type of experience or education',
         },
       },
-      required: [
-        'experience_or_education_name',
-        'experience_or_education_type',
-      ],
+      required: ['experience_or_education'],
     },
   },
   {
